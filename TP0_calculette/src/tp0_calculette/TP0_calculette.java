@@ -16,30 +16,36 @@ public class TP0_calculette {
      * @param args the command line arguments
      */
     public static void main(String[] args) {  
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the operator:\n" +"1) add\n" +
-        "2) substract\n" +"3) multiply\n" +"4) divide\n" +"5) modulo");
-        int operateur = sc.nextInt();
-        
-        System.out.print("Please enter the first number: ");
-        int operande1 = sc.nextInt();
-        
-        System.out.print("Please enter the second number: ");
-        int operande2 = sc.nextInt();
-        if operateur <1{
-                System.out.print("choisir un nombre entre 1 et 5");
-        }else operateur = 1;{
-                int x = operande1 + operande2;
-        else operateur = 2;
-                int x = operande1 - operande2; 
-        else operateur = 3;
-                int x = operande1 * operande2;
-        else operateur = 4;
-                int x = operande1 / operande2;
-        else operateur = 5;
-                int x = operande1 % operande2;
-        System.out.print("The result is :"x);
-        sc.close();
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("""
+                                           Please enter the operator:
+                                           1) add
+                                           2) substract
+                                           3) multiply
+                                           4) divide
+                                           5) modulo""");
+            int operateur = sc.nextInt();
+            
+            System.out.print("Please enter the first number: ");
+            int operande1 = sc.nextInt();
+            
+            System.out.print("Please enter the second number: ");
+            int operande2 = sc.nextInt();
+            if (operateur < 1 || operateur > 5) {
+                System.out.println("Choisir un nombre entre 1 et 5");
+            } else {
+                int x = 0;
+                
+                switch (operateur) {
+                    case 1 -> x = operande1 + operande2;
+                    case 2 -> x = operande1 - operande2;
+                    case 3 -> x = operande1 * operande2;
+                    case 4 -> x = operande1 / operande2;
+                    case 5 -> x = operande1 % operande2;
+                }
+                System.out.println("The result is: " + x);
+            }
+        }
     }
-    
 }
+       
