@@ -12,7 +12,7 @@ public class voiture {
     String modele;
     String marque;
     int puissance;
-    Personne proprietaire;
+    personne proprietaire;
     
     public voiture(String modele, String marque, int puissance){
         this.modele = modele;
@@ -20,10 +20,19 @@ public class voiture {
         this.puissance = puissance;
         this.proprietaire = null;
     }
-    @override
-    public String toString(){
-        String proprietaireNom = (proprietaire == null)? "aucun proprietaire"
-                :proprietaire.prenom + " " + proprietaire.nom
-        return modele + "" + marque + "  ( " + puissance + "CV), proprietaire : "+proprietaireNom;
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        String proprietaireNom;
+        if (proprietaire == null) {
+            proprietaireNom = "aucun proprietaire";
+        } else {
+            proprietaireNom = proprietaire.prenom + " " + proprietaire.nom;
+        }
+        return modele + " " + marque + " (" + puissance + "CV), proprietaire : " + proprietaireNom;
     }
 }
