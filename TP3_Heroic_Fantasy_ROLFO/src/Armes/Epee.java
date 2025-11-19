@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Beans/Bean.java to edit this template
  */
-package tp3_heroic_fantasy_rolfo;
+package Armes;
 
 /**
  *
  * @author enzoa
  */
 public class Epee extends Arme {
-    private int finesse;
+    int finesse;
 
     public Epee(String nom, int niveauAttaque, int finesse) {
         super(nom, niveauAttaque);
