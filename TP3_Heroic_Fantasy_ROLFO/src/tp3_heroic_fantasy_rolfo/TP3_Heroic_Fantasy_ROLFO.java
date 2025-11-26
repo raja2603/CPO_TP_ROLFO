@@ -53,25 +53,25 @@ public class TP3_Heroic_Fantasy_ROLFO {
         Baton saule = new Baton("Saule", 6, 7);
         Epee joyeuse = new Epee("Joyeuse", 8, 6);
 
-// Ajoute 1 bâton et 2 épées au guerrier Conan
-conan.ajouterArme(chene);      // 1 bâton
-conan.ajouterArme(excalibur);  // 1ère épée
-conan.ajouterArme(durandal);   // 2ème épée
-conan.equiperArme("Excalibur"); // Choisir la première épée
+        conan.ajouterArme(chene);      
+        conan.ajouterArme(excalibur);  
+        conan.ajouterArme(durandal);   
+        conan.equiperArme("Excalibur"); 
 
-// Ajoute 2 bâtons et 1 épée au magicien Gandalf
-gandalf.ajouterArme(charme);   // 1er bâton
-gandalf.ajouterArme(saule);    // 2ème bâton
-gandalf.ajouterArme(joyeuse);  // 1 épée
+        gandalf.ajouterArme(charme);   
+        gandalf.ajouterArme(saule);    
+        gandalf.ajouterArme(joyeuse);  
 
-// Affiche le nombre d'armes préférées du magicien (bâtons)
-System.out.println("Nb de bâtons pour " + gandalf.getNom() + " : " + gandalf.getNbArmesPredilection());
+        System.out.println("Nb de batons pour " + gandalf.getNom() + " : " + gandalf.getNbArmesPredilection());
 
-// Affiche toutes les caractéristiques des personnages
-for (Personnage p : personnages) {
-    System.out.println(p);
-}
+        for (Personnage p : personnages) {
+            System.out.println(p);
+        }
+        System.out.println("Nb de batons pour le magicien : " + gandalf.getNbArmesPredilection());
+        System.out.println("Nb d'epees pour le guerrier : " + conan.getNbArmesPredilection());
         
-        
+        System.out.println("Nombre total de personnages : " + Personnage.getNbPersonnages());
+        System.out.println("Nombre de guerriers : " + Guerrier.getNbGuerriers());
+        System.out.println("Nombre de magiciens : " + Magicien.getNbMagiciens());
     }
 }

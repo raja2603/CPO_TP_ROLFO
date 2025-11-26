@@ -14,12 +14,18 @@ import Armes.*;
 public class Personnage {
     String nom;
     int niveauVie;
-
+    protected static int nbPersonnages = 0;
+    
     public Personnage(String nom, int niveauVie) {
         this.nom = nom;
         this.niveauVie = niveauVie;
+        nbPersonnages++;
     }
-
+    
+    public static int getNbPersonnages() {
+        return nbPersonnages;
+    }
+    
     public int getNiveauVie() {
         return niveauVie;
     }
@@ -28,8 +34,8 @@ public class Personnage {
         return nom;
     }
 
-    private final ArrayList<Arme> inventaire = new ArrayList<>();
-    private Arme armeEnMain = null;
+    protected  final ArrayList<Arme> inventaire = new ArrayList<>();
+    protected  Arme armeEnMain = null;
     
     public void ajouterArme(Arme a) {
         if (inventaire.size() < 5) {
@@ -48,14 +54,17 @@ public class Personnage {
             if (a.getNom().equals(nomArme)) {
                 armeEnMain = a;
                 trouvee = true;
-                System.out.println(nom + " a équipé l’arme " + nomArme);
+                System.out.println(nom + " a equipe l’arme " + nomArme);
                 break;
             }
         }
         if (!trouvee) {
-            System.out.println(nom + " ne possède pas l’arme " + nomArme);
+            System.out.println(nom + " ne possede pas l’arme " + nomArme);
         }
     }
+    public int getNbArmesPredilection() {
+    return 0; // par défaut : aucune
+}
     @Override
     public String toString() {
         String res = "Nom : " + nom + ", Niveau de vie : " + niveauVie;
@@ -66,4 +75,14 @@ public class Personnage {
         }
         return res;
     }
+
+    /**
+     *
+     * @throws Throwable
+     */
+    @Override
+    protected void finalize() throws Throwable {
+    nbPersonnages--;
+    super.finalize();
+}
 }
