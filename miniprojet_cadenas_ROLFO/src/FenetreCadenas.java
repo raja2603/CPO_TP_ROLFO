@@ -10,12 +10,65 @@
 public class FenetreCadenas extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FenetreCadenas.class.getName());
+    // --- LOGIQUE DU JEU ---
+    private int[] codeSecret = new int[4];
+    private int tentativeCourante = 0;
+    private final int MAX_TENTATIVES = 10;
 
     /**
      * Creates new form NewJFrame
      */
     public FenetreCadenas() {
         initComponents();
+        initialiserJeu();
+        
+    }
+        // Initialise ou réinitialise le jeu
+    private void initialiserJeu() {
+        java.util.Random r = new java.util.Random();
+        for (int i = 0; i < 4; i++) {
+            codeSecret[i] = r.nextInt(10); // chiffre entre 0 et 9
+        }
+        tentativeCourante = 0;
+        txt_1.setText("0");
+        txt_2.setText("0");
+        txt_3.setText("0");
+        txt_4.setText("0");
+        nb_nb_exact.setText("0");
+        nb_nb_haut.setText("0");
+        nb_nb_bas.setText("0");
+        txt_score.setText("0 sur " + MAX_TENTATIVES);
+        // on réactive les boutons
+        activerBoutons(true);
+    }
+
+    private void activerBoutons(boolean actif) {
+        bt_up_1.setEnabled(actif);
+        bt_up_2.setEnabled(actif);
+        bt_up_3.setEnabled(actif);
+        bt_up_4.setEnabled(actif);
+        bt_down_1.setEnabled(actif);
+        bt_down_2.setEnabled(actif);
+        bt_down_3.setEnabled(actif);
+        bt_down_4.setEnabled(actif);
+        bt_tester.setEnabled(actif);
+    }
+    // Renvoie le chiffre affiché dans un label
+    private int getValeur(javax.swing.JLabel lbl) {
+        return Integer.parseInt(lbl.getText());
+    }
+
+    // Fixe le chiffre d'un label en restant entre 0 et 9 (avec effet "roue")
+    private void incrementer(javax.swing.JLabel lbl) {
+        int v = getValeur(lbl);
+        v = (v + 1) % 10;
+        lbl.setText(Integer.toString(v));
+    }
+
+    private void decrementer(javax.swing.JLabel lbl) {
+        int v = getValeur(lbl);
+        v = (v + 9) % 10; // équivalent à v-1 modulo 10
+        lbl.setText(Integer.toString(v));
     }
 
     /**
@@ -58,175 +111,224 @@ public class FenetreCadenas extends javax.swing.JFrame {
         texte_intro.setText("Trouvez le code en moins de 5 tentatives!");
         getContentPane().add(texte_intro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 400, -1));
 
-        bt_up_1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_up_1.setText("^");
-        bt_up_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_up_1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_up_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+        bt_up_1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        bt_up_1.setText("/\\");
+            bt_up_1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    bt_up_1ActionPerformed(evt);
+                }
+            });
+            getContentPane().add(bt_up_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 50, -1));
 
-        bt_up_2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_up_2.setText("^");
-        bt_up_2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_up_2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_up_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+            bt_up_2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+            bt_up_2.setText("/\\");
+                bt_up_2.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        bt_up_2ActionPerformed(evt);
+                    }
+                });
+                getContentPane().add(bt_up_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 50, -1));
 
-        bt_up_3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_up_3.setText("^");
-        bt_up_3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_up_3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_up_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
+                bt_up_3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+                bt_up_3.setText("/\\");
+                    bt_up_3.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            bt_up_3ActionPerformed(evt);
+                        }
+                    });
+                    getContentPane().add(bt_up_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 50, -1));
 
-        bt_up_4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_up_4.setText("^");
-        bt_up_4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_up_4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_up_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+                    bt_up_4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+                    bt_up_4.setText("/\\");
+                        bt_up_4.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bt_up_4ActionPerformed(evt);
+                            }
+                        });
+                        getContentPane().add(bt_up_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 50, -1));
 
-        txt_1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        txt_1.setText("0");
-        getContentPane().add(txt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+                        txt_1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+                        txt_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                        txt_1.setText("0");
+                        getContentPane().add(txt_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 50, -1));
 
-        txt_2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        txt_2.setText("0");
-        getContentPane().add(txt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
+                        txt_2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+                        txt_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                        txt_2.setText("0");
+                        getContentPane().add(txt_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 90, 50, -1));
 
-        txt_3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        txt_3.setText("0");
-        getContentPane().add(txt_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
+                        txt_3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+                        txt_3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                        txt_3.setText("0");
+                        getContentPane().add(txt_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 90, 50, -1));
 
-        txt_4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        txt_4.setText("0");
-        getContentPane().add(txt_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
+                        txt_4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+                        txt_4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                        txt_4.setText("0");
+                        getContentPane().add(txt_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 90, 50, -1));
 
-        bt_down_1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_down_1.setText("^");
-        bt_down_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_down_1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_down_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+                        bt_down_1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+                        bt_down_1.setText("\\/");
+                        bt_down_1.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bt_down_1ActionPerformed(evt);
+                            }
+                        });
+                        getContentPane().add(bt_down_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 50, 30));
 
-        bt_down_2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_down_2.setText("^");
-        bt_down_2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_down_2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_down_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
+                        bt_down_2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+                        bt_down_2.setText("\\/");
+                        bt_down_2.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bt_down_2ActionPerformed(evt);
+                            }
+                        });
+                        getContentPane().add(bt_down_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 50, 30));
 
-        bt_down_3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_down_3.setText("^");
-        bt_down_3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_down_3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_down_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
+                        bt_down_3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+                        bt_down_3.setText("\\/");
+                        bt_down_3.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bt_down_3ActionPerformed(evt);
+                            }
+                        });
+                        getContentPane().add(bt_down_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 50, 30));
 
-        bt_down_4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        bt_down_4.setText("^");
-        bt_down_4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_down_4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_down_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, -1, -1));
+                        bt_down_4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+                        bt_down_4.setText("\\/");
+                        bt_down_4.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bt_down_4ActionPerformed(evt);
+                            }
+                        });
+                        getContentPane().add(bt_down_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 50, 30));
 
-        bt_tester.setText("Tester");
-        bt_tester.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_testerActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_tester, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
+                        bt_tester.setText("Tester");
+                        bt_tester.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bt_testerActionPerformed(evt);
+                            }
+                        });
+                        getContentPane().add(bt_tester, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
 
-        txt_nb_exact.setText("Nombre de chiffre exact :");
-        getContentPane().add(txt_nb_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+                        txt_nb_exact.setText("Nombre de chiffre exact :");
+                        getContentPane().add(txt_nb_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
-        nb_nb_exact.setText("0");
-        getContentPane().add(nb_nb_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 10, -1));
+                        nb_nb_exact.setText("0");
+                        getContentPane().add(nb_nb_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 10, -1));
 
-        txt_nb_haut.setText("Nombre de chiffre trop haut:");
-        getContentPane().add(txt_nb_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+                        txt_nb_haut.setText("Nombre de chiffre trop haut:");
+                        getContentPane().add(txt_nb_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
-        nb_nb_haut.setText("0");
-        getContentPane().add(nb_nb_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 10, -1));
+                        nb_nb_haut.setText("0");
+                        getContentPane().add(nb_nb_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 10, -1));
 
-        txt_nb_bas.setText("Nombre de chiffre trop bas:");
-        getContentPane().add(txt_nb_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+                        txt_nb_bas.setText("Nombre de chiffre trop bas:");
+                        getContentPane().add(txt_nb_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
-        nb_nb_bas.setText("0");
-        getContentPane().add(nb_nb_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 10, -1));
+                        nb_nb_bas.setText("0");
+                        getContentPane().add(nb_nb_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 10, -1));
 
-        txt_tentative.setText("Tentatives");
-        getContentPane().add(txt_tentative, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
+                        txt_tentative.setText("Tentatives");
+                        getContentPane().add(txt_tentative, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
 
-        txt_score.setText("0 sur 5");
-        getContentPane().add(txt_score, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 206, 80, 40));
+                        txt_score.setText("0 sur 10");
+                        getContentPane().add(txt_score, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 206, 80, 40));
 
-        bt_recommencer.setText("Recommencer");
-        bt_recommencer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_recommencerActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_recommencer, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, -1, -1));
+                        bt_recommencer.setText("Recommencer");
+                        bt_recommencer.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bt_recommencerActionPerformed(evt);
+                            }
+                        });
+                        getContentPane().add(bt_recommencer, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, -1, -1));
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+                        pack();
+                    }// </editor-fold>//GEN-END:initComponents
 
     private void bt_up_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_up_1ActionPerformed
         // TODO add your handling code here:
+        incrementer(txt_1);
     }//GEN-LAST:event_bt_up_1ActionPerformed
 
     private void bt_up_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_up_2ActionPerformed
         // TODO add your handling code here:
+        incrementer(txt_2);
     }//GEN-LAST:event_bt_up_2ActionPerformed
 
     private void bt_up_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_up_3ActionPerformed
         // TODO add your handling code here:
+        incrementer(txt_3);
     }//GEN-LAST:event_bt_up_3ActionPerformed
 
     private void bt_up_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_up_4ActionPerformed
         // TODO add your handling code here:
+        incrementer(txt_4);
     }//GEN-LAST:event_bt_up_4ActionPerformed
 
     private void bt_down_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_down_1ActionPerformed
         // TODO add your handling code here:
+        decrementer(txt_1);
     }//GEN-LAST:event_bt_down_1ActionPerformed
 
     private void bt_down_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_down_2ActionPerformed
         // TODO add your handling code here:
+        decrementer(txt_2);
     }//GEN-LAST:event_bt_down_2ActionPerformed
 
     private void bt_down_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_down_3ActionPerformed
         // TODO add your handling code here:
+        decrementer(txt_3);
     }//GEN-LAST:event_bt_down_3ActionPerformed
 
     private void bt_down_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_down_4ActionPerformed
         // TODO add your handling code here:
+        decrementer(txt_4);
     }//GEN-LAST:event_bt_down_4ActionPerformed
 
     private void bt_testerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_testerActionPerformed
         // TODO add your handling code here:
+        // Récupère la proposition du joueur
+        int[] prop = {
+            getValeur(txt_1),
+            getValeur(txt_2),
+            getValeur(txt_3),
+            getValeur(txt_4)
+        };
+
+        int nbExact = 0;
+        int nbHaut = 0;
+        int nbBas = 0;
+
+        for (int i = 0; i < 4; i++) {
+            if (prop[i] == codeSecret[i]) {
+                nbExact++;
+            } else if (prop[i] > codeSecret[i]) {
+                nbHaut++;
+            } else {
+                nbBas++;
+            }
+        }
+
+        nb_nb_exact.setText(Integer.toString(nbExact));
+        nb_nb_haut.setText(Integer.toString(nbHaut));
+        nb_nb_bas.setText(Integer.toString(nbBas));
+
+        tentativeCourante++;
+        txt_score.setText(tentativeCourante + " sur " + MAX_TENTATIVES);
+
+        if (nbExact == 4) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagné !");
+            activerBoutons(false);
+        } else if (tentativeCourante >= MAX_TENTATIVES) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Perdu !");
+            activerBoutons(false);
+        }
     }//GEN-LAST:event_bt_testerActionPerformed
 
     private void bt_recommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_recommencerActionPerformed
         // TODO add your handling code here:
+        initialiserJeu();
     }//GEN-LAST:event_bt_recommencerActionPerformed
 
     /**
