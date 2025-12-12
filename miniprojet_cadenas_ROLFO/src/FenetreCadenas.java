@@ -33,6 +33,7 @@ public class FenetreCadenas extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public FenetreCadenas() {
+        this.difficulte = difficulte;
         initComponents();
         initialiserJeu();
         
@@ -370,7 +371,7 @@ public class FenetreCadenas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FenetreCadenas().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FenetreCadenas(Difficulte.NORMAL).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
