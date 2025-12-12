@@ -11,10 +11,24 @@ public class FenetreCadenas extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FenetreCadenas.class.getName());
     // --- LOGIQUE DU JEU ---
-    private int[] codeSecret = new int[4];
-    private int tentativeCourante = 0;
-    private final int MAX_TENTATIVES = 10;
+    private enum Difficulte {
+        FACILE(4, 10),   // 4 chiffres, 10 tentatives
+        NORMAL(4, 7),
+        DIFFICILE(5, 7); // 5 chiffres, 7 tentatives
 
+        final int longueurCode;
+        final int maxTentatives;
+
+        Difficulte(int longueurCode, int maxTentatives) {
+            this.longueurCode = longueurCode;
+            this.maxTentatives = maxTentatives;
+        }
+    }
+    
+    private Difficulte difficulte = Difficulte.NORMAL;
+    private int[] codeSecret;
+    private int tentativeCourante = 0;
+    private int MAX_TENTATIVES;
     /**
      * Creates new form NewJFrame
      */
@@ -25,9 +39,12 @@ public class FenetreCadenas extends javax.swing.JFrame {
     }
         // Initialise ou réinitialise le jeu
     private void initialiserJeu() {
-        java.util.Random r = new java.util.Random();
-        for (int i = 0; i < 4; i++) {
-            codeSecret[i] = r.nextInt(10); // chiffre entre 0 et 9
+        codeSecret = new int[difficulte.longueurCode];
+        MAX_TENTATIVES = difficulte.maxTentatives;
+        
+            java.util.Random r = new java.util.Random();
+        for (int i = 0; i < codeSecret.length; i++) {
+            codeSecret[i] = r.nextInt(10);
         }
         tentativeCourante = 0;
         txt_1.setText("0");
@@ -300,14 +317,14 @@ public class FenetreCadenas extends javax.swing.JFrame {
         int nbHaut = 0;
         int nbBas = 0;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < codeSecret.length; i++) {
             if (prop[i] == codeSecret[i]) {
                 nbExact++;
             } else if (prop[i] > codeSecret[i]) {
                 nbHaut++;
             } else {
                 nbBas++;
-            }
+            }      
         }
 
         nb_nb_exact.setText(Integer.toString(nbExact));
@@ -317,7 +334,7 @@ public class FenetreCadenas extends javax.swing.JFrame {
         tentativeCourante++;
         txt_score.setText(tentativeCourante + " sur " + MAX_TENTATIVES);
 
-        if (nbExact == 4) {
+        if (nbExact == codeSecret.length) {
             javax.swing.JOptionPane.showMessageDialog(this, "Gagné !");
             activerBoutons(false);
         } else if (tentativeCourante >= MAX_TENTATIVES) {
