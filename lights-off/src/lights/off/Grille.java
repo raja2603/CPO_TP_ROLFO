@@ -32,11 +32,11 @@ public class Grille {
     }
 
     public void togglerCelluleEtVoisines(int ligne, int colonne) {
-        changerSiValide(ligne, colonne);         // la cellule
-        changerSiValide(ligne - 1, colonne);     // haut
-        changerSiValide(ligne + 1, colonne);     // bas
-        changerSiValide(ligne, colonne - 1);     // gauche
-        changerSiValide(ligne, colonne + 1);     // droite
+        changerSiValide(ligne, colonne);         
+        changerSiValide(ligne - 1, colonne);     
+        changerSiValide(ligne + 1, colonne);     
+        changerSiValide(ligne, colonne - 1);     
+        changerSiValide(ligne, colonne + 1);     
     }
 
     private void changerSiValide(int i, int j) {
