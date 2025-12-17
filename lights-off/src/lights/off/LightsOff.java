@@ -15,11 +15,12 @@ public class LightsOff {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Entrez votre nom : ");
-        String nom = sc.nextLine();
+        GrilleDeJeu g = new GrilleDeJeu(5, 5);
+        g.melangerMatriceAleatoirement(10);
+        System.out.println(g);
 
-        Partie partie = new Partie(nom);
-        partie.lancerPartie();    
+        Partie p = new Partie(5, 5); // ou autre taille
+        p.initialiserPartie();
+        p.lancerPartie();
     }
 }
