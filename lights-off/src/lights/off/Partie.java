@@ -10,11 +10,11 @@ import java.util.Scanner;
  * @author enzoa
  */
 public class Partie {
-    private Grille grille;
+    private GrilleDeJeu grille;
     private Joueur joueur;
 
     public Partie(String nomJoueur) {
-        this.grille = new Grille();
+        this.grille = new GrilleDeJeu();
         this.joueur = new Joueur(nomJoueur);
     }
 
@@ -32,9 +32,9 @@ public class Partie {
             grille.afficher();
             System.out.println("Nombre de coups : " + joueur.getNbCoups());
 
-            System.out.print("Entrez la ligne (0-" + (Grille.TAILLE - 1) + ") : ");
+            System.out.print("Entrez la ligne (0-" + (GrilleDeJeu.TAILLE - 1) + ") : ");
             int i = sc.nextInt();
-            System.out.print("Entrez la colonne (0-" + (Grille.TAILLE - 1) + ") : ");
+            System.out.print("Entrez la colonne (0-" + (GrilleDeJeu.TAILLE - 1) + ") : ");
             int j = sc.nextInt();
 
             grille.togglerCelluleEtVoisines(i, j);

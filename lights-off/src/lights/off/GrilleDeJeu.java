@@ -9,11 +9,11 @@ import java.util.Random;
  *
  * @author enzoa
  */
-public class Grille {
+public class GrilleDeJeu {
     private CelluleLumineuse[][] cellules;
     public static final int TAILLE = 5;
 
-    public Grille() {
+    public GrilleDeJeu() {
         cellules = new CelluleLumineuse[TAILLE][TAILLE];
         for (int i = 0; i < TAILLE; i++) {
             for (int j = 0; j < TAILLE; j++) {

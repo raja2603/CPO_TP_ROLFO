@@ -9,35 +9,55 @@ package lights.off;
  * @author enzoa
  */
 public class CelluleLumineuse {
-    private boolean allumee;
 
+    /** true si la cellule est allumée, false si elle est éteinte. */
+    private boolean etat;
+
+    /**
+     * Constructeur par défaut.
+     * Initialise la cellule à l'état éteint.
+     */
     public CelluleLumineuse() {
-        this.allumee = false; // éteinte au départ
+        this.etat = false;
     }
 
-    public boolean estAllumee() {
-        return allumee;
+    /**
+     * Inverse l'état de la cellule.
+     * Si elle est allumée, elle s'éteint, et inversement.
+     */
+    public void activerCellule() {
+        etat = !etat;
     }
 
-    public boolean estEteinte() {
-        return !allumee;
+    /**
+     * Éteint la cellule (etat = false).
+     */
+    public void eteindreCellule() {
+        etat = false;
     }
 
-    public void allumer() {
-        allumee = true;
+    /**
+     * Indique si la cellule est éteinte.
+     * @return true si la cellule est éteinte, false sinon.
+     */
+    public boolean estEteint() {
+        return !etat;
     }
 
-    public void eteindre() {
-        allumee = false;
+    /**
+     * Renvoie l'état actuel de la cellule.
+     * @return true si allumée, false si éteinte.
+     */
+    public boolean getEtat() {
+        return etat;
     }
 
-    public void changerEtat() {
-        allumee = !allumee;
-    }
-
+    /**
+     * Représentation texte de la cellule.
+     * @return "X" si allumée, "O" si éteinte.
+     */
     @Override
     public String toString() {
-        // utile pour l'affichage en console
-        return allumee ? "X" : ".";
+        return etat ? "X" : "O";
     }
 }
