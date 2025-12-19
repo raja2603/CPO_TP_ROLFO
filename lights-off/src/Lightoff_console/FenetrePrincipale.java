@@ -54,19 +54,35 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     }
 
     /** applique un coup et met à jour l'affichage */
-    private void jouerCoup(int ligne, int colonne) {
-        grille.activerLigneDeCellules(ligne);
-        grille.activerColonneDeCellules(colonne);
-        nbCoups++;
+private void jouerCoup(int ligne, int colonne) {
+    // cellule cliquée
+    grille.getCellule(ligne, colonne).activerCellule();
 
-        mettreAJourAffichage();
-
-        if (grille.cellulesToutesEteintes()) {
-            JOptionPane.showMessageDialog(this,
-                    "Bravo ! Grille éteinte en " + nbCoups + " coups.");
-        }
+    // voisine au-dessus
+    if (ligne > 0) {
+        grille.getCellule(ligne - 1, colonne).activerCellule();
+    }
+    // voisine en dessous
+    if (ligne < taille - 1) {
+        grille.getCellule(ligne + 1, colonne).activerCellule();
+    }
+    // voisine à gauche
+    if (colonne > 0) {
+        grille.getCellule(ligne, colonne - 1).activerCellule();
+    }
+    // voisine à droite
+    if (colonne < taille - 1) {
+        grille.getCellule(ligne, colonne + 1).activerCellule();
     }
 
+    nbCoups++;
+    mettreAJourAffichage();
+
+    if (grille.cellulesToutesEteintes()) {
+        JOptionPane.showMessageDialog(this,
+                "Bravo ! Grille éteinte en " + nbCoups + " coups.");
+    }
+}
     /** met à jour couleurs / texte des boutons */
     private void mettreAJourAffichage() {
         for (int i = 0; i < taille; i++) {
@@ -86,6 +102,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 b.setBorderPainted(false);
             }
         }
+    }
+    private void resetPartie() {
+        nbCoups = 0;                               
+        grille.melangerMatriceAleatoirement(10);   
+        mettreAJourAffichage();                    
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,7 +133,12 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jButton1.setText("jButton1");
+        jButton1.setText("reset partie");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,6 +165,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        resetPartie();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
