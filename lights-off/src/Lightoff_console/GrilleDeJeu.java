@@ -153,4 +153,7 @@ public class GrilleDeJeu {
 
         return sb.toString();
     }
+    public CelluleLumineuse getCellule(int i, int j) {
+        return matriceCellules[i][j];
+    }
 }

@@ -11,14 +11,14 @@ import java.util.Scanner;
  */
 public class Partie {
 
-    private GrilleDeJeu grille;
+    private final GrilleDeJeu grille;
     private int nbCoups;
 
     /** Constructeur : crée une grille et met nbCoups à 0. */
     public Partie() {
         // tu peux changer la taille ici (n x n)
-        this.grille = new GrilleDeJeu(5, 5);
-        this.nbCoups = 0;
+        grille = new GrilleDeJeu(5, 5);
+        nbCoups = 0;
     }
 
     /** Initialise la partie (mélange la grille). */
@@ -48,25 +48,19 @@ public class Partie {
             int choix = sc.nextInt();
 
             switch (choix) {
-                case 1:
+                case 1 -> {
                     System.out.print("Numéro de ligne : ");
                     int l = sc.nextInt();
                     grille.activerLigneDeCellules(l);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.print("Numéro de colonne : ");
                     int c = sc.nextInt();
                     grille.activerColonneDeCellules(c);
-                    break;
-                case 3:
-                    grille.activerDiagonaleDescendante();
-                    break;
-                case 4:
-                    grille.activerDiagonaleMontante();
-                    break;
-                default:
-                    System.out.println("Choix invalide, coup perdu !");
-                    break;
+                }
+                case 3 -> grille.activerDiagonaleDescendante();
+                case 4 -> grille.activerDiagonaleMontante();
+                default -> System.out.println("Choix invalide, coup perdu !");
             }
 
             nbCoups++;
